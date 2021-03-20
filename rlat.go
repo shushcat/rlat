@@ -4,7 +4,8 @@ import (
 	"github.com/shushcat/rlat/comparator"
 	"github.com/shushcat/rlat/options"
 	"github.com/shushcat/rlat/reports"
-	"fmt"
+	// "fmt"
+	"log"
 	// "github.com/shushcat/rlat/damlev"
 	// "github.com/shushcat/rlat/stemmer"
 )
@@ -12,7 +13,7 @@ import (
 func main() {
 	targetPath, sourcePath, window, minSharedWords, minWordLen, ordered, stemming, stopPath, editDist, err := options.ParseFlags()
 	if err != nil {
-		fmt.Println("Error:", err)
+		log.Fatal(err)
 		return
 	}
 	// fmt.Println(targetPath, sourcePath, window, minSharedWords, minWordLen, ordered, stemming, stopPath, editDist)

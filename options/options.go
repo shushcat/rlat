@@ -15,9 +15,6 @@ func ParseFlags() (string, string, int, int, int, bool, bool, string, int, error
 	}
 	flag.StringVar(&targetPath, "t", "", "target text file")
 	flag.StringVar(&sourcePath, "s", "", "source text file")
-	if (targetPath == "") || (sourcePath == "") {
-		return handleError(errors.New("Target and source files must be specified."))
-	}
 	flag.IntVar(&window, "w", 10, "number of words in a window")
 	flag.IntVar(&minSharedWords, "msw", 3, "minimum number of shared words in a window")
 	flag.IntVar(&minWordLen, "mwl", 4, "minimum length of words included in comparison")
@@ -26,5 +23,8 @@ func ParseFlags() (string, string, int, int, int, bool, bool, string, int, error
 	flag.StringVar(&stopPath, "stop", "", "text file containing stopwords")
 	flag.IntVar(&editDist, "dist", 0, "Damarau-Levenschtein edit distance")
 	flag.Parse()
+	if (targetPath == "") || (sourcePath == "") {
+		return handleError(errors.New("Target and source files must be specified."))
+	}
 	return targetPath, sourcePath, window, minSharedWords, minWordLen, ordered, stemming, stopPath, editDist, nil
 }
