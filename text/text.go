@@ -23,7 +23,6 @@ func InitText(path string) Text {
 	t.FileName = path
 	t.WordArray = ParseFile(path)
 	t.initWordHash(t.WordArray)
-	// fmt.Println(t)
 	return t
 }
 
