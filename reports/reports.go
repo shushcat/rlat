@@ -38,7 +38,7 @@ func highlight(wordArray []string, indexSlice []int) []string {
 	// TODO Highlight rather than upcasing.  Implementing this may be
 	// impractical at this level since imprementing this prior to word
 	// wrapping will require making that function significantly more
-	// complicated.  Fuck the mail.
+	// complicated.
 	// var pre, post string
 	// Color matching words red if the program output is being sent to a terminal, and surround matching words with asterisks otherwise.
 	// if fileInfo, _ := os.Stdout.Stat(); (fileInfo.Mode() & os.ModeCharDevice) != 0 {
@@ -63,16 +63,17 @@ func PrintReport(cmp Comparator) {
 		fmt.Println("No similar clusters found.")
 		fmt.Println("--------------------------------")
 	} else {
-		highlit := make([]string, len(cmp.Target.WordArray))
+		hlTarget := make([]string, len(cmp.Target.WordArray))
+		hlSource := make([]string, len(cmp.Source.WordArray))
 		for _, pair := range cmp.SimilarClusters {
-			copy(highlit, cmp.Target.WordArray)
-			highlit = highlight(highlit, pair[0].Values())
-			targetLine := strings.Join(limitContext(highlit, pair[0].Values()), " ")
+			copy(hlTarget, cmp.Target.WordArray)
+			hlTarget = highlight(hlTarget, pair[0].Values())
+			targetLine := strings.Join(limitContext(hlTarget, pair[0].Values()), " ")
 			fmt.Println(wrapLine(targetLine, "> "))
 			fmt.Println("---")
-			copy(highlit, cmp.Source.WordArray)
-			highlit = highlight(highlit, pair[1].Values())
-			sourceLine := strings.Join(limitContext(highlit, pair[1].Values()), " ")
+			copy(hlSource, cmp.Source.WordArray)
+			hlSource = highlight(hlSource, pair[1].Values())
+			sourceLine := strings.Join(limitContext(hlSource, pair[1].Values()), " ")
 			fmt.Println(wrapLine(sourceLine, "< "))
 			fmt.Println("--------------------------------")
 		}

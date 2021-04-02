@@ -4,6 +4,7 @@ import (
 	"github.com/shushcat/rlat/text"
 	"reflect"
 	"sort"
+	"fmt"
 )
 
 type Text = text.Text
@@ -81,12 +82,16 @@ func indexClusters(text1 Text, text2 Text, window int, minWordLen int, stopwords
 	// The keys for intersectionHash are individual words, and the values
 	// are the indices at which those words appear in text1.
 	intersectionHash := selectKeys(text1.WordHash, intersection)
+	fmt.Print(len(intersectionHash), len(text1.WordHash), len(intersection))
 	// `indices` should contain all the indices, in order.
 	var indices []int
 	for _, i := range intersectionHash {
 		indices = append(indices, i...)
 	}
+	// FIXME The indices listed by the following call to Println omit precisely
+	// those which are not capitalized in the final report.
 	sort.Ints(indices)
+	fmt.Print(" ", indices[:6], "\n")
 	indexClusters := partitionIndexClusters(indices, window)
 	return indexClusters
 }
@@ -122,10 +127,9 @@ func (c *Comparator) initWordClusters(window int, minSharedWords int,
 	minWordLen int, stopwords []string, editDist int) {
 	text1 := c.Source
 	text2 := c.Target
-	// HEREBEIT
-	intersection := sharedWords(&text1, &text2, minWordLen, editDist, stopwords)
+	intersection := uniqSharedWords(&text1, &text2, minWordLen, editDist, stopwords)
 	ics1 := indexClusters(text1, text2, window, minWordLen, stopwords, editDist, intersection)
-	// fmt.Println(ics1, len(ics1))
+	fmt.Println(ics1, len(ics1))
 	ics2 := indexClusters(text2, text1, window, minWordLen, stopwords, editDist, intersection)
 	// fmt.Println(ics2, len(ics2))
 	var wcs []WordCluster

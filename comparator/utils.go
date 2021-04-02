@@ -59,11 +59,11 @@ func selectKeys(hash1 map[string][]int, keys []string) map[string][]int {
 }
 
 // The `sharedWords` function takes pointers to two texts, a minimum word
-// length, and a permissible Damarau-Levenschtein edit distance.  Words 
+// length, and a permissible Damarau-Levenshtein edit distance.  Unique words
 // that are shared by the two texts, meet the length and edit distance
 // requirements, and are not in the stopwords list are returned as a string
 // slice.
-func sharedWords(t1 *Text, t2 *Text, minWordLen int, editDist int, stopwords []string) []string {
+func uniqSharedWords(t1 *Text, t2 *Text, minWordLen int, editDist int, stopwords []string) []string {
 	var shared []string
 	uniqueShared := make(map[string]bool)
 	if editDist > 0 {
