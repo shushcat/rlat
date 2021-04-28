@@ -50,4 +50,4 @@ rlat is available free of restrictions under the terms of the [MIT License](http
 
 The basic algorithm `rlat` follows in comparing texts was inspired by the plagiarism-detection program [WCopyfind](http://plagiarism.bloomfieldmedia.com/wordpress/software/wcopyfind/) by Lou Bloomfield.
 
-An earlier version of this program is archived at [the Rcopyfind repository](https://github.com/shushcat/rcopyfind_prototype) repository.
+An earlier version of this program is archived at [the Rcopyfind repository](https://github.com/shushcat/rcopyfind_prototype).
