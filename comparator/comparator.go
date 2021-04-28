@@ -129,11 +129,16 @@ func (c *Comparator) initWordClusters(window int, minSharedWords int,
 	text2 := c.Target
 	intersection := uniqSharedWords(&text1, &text2, minWordLen, editDist, stopwords)
 	ics1 := indexClusters(text1, text2, window, minWordLen, stopwords, editDist, intersection)
-	fmt.Println(ics1, len(ics1))
+	// FIXME With `-mwl 0`, ics1 contains all words in a self-referring
+	// text, so why don't they all get marked by the reporting function?
+	fmt.Println(ics1, len(ics1[0]))
 	ics2 := indexClusters(text2, text1, window, minWordLen, stopwords, editDist, intersection)
 	// fmt.Println(ics2, len(ics2))
+	// FIXME It seems that WordClusters are injective, but they should
+	// associate words with sets of indices.
 	var wcs []WordCluster
 	wcs = populateWordCluster(text1, ics1, minSharedWords)
+	fmt.Println(wcs, len(wcs[0]))
 	c.sourceWordClusters = wcs
 	// fmt.Println(c.sourceWordClusters)
 	wcs = populateWordCluster(text2, ics2, minSharedWords)
