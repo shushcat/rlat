@@ -24,7 +24,7 @@ func ParseFlags() (string, string, int, int, int, bool, bool, string, int, error
 	flag.IntVar(&editDist, "dist", 0, "Damarau-Levenschtein edit distance")
 	flag.Parse()
 	if (targetPath == "") || (sourcePath == "") {
-		return handleError(errors.New("Target and source files must be specified."))
+		return handleError(errors.New("\nTarget and source files must be specified.  Pass `-h` for options."))
 	}
 	return targetPath, sourcePath, window, minSharedWords, minWordLen, ordered, stemming, stopPath, editDist, nil
 }
