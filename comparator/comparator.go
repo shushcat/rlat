@@ -4,12 +4,11 @@ import (
 	"github.com/shushcat/rlat/text"
 	"reflect"
 	"sort"
-	"fmt"
 )
 
 type Text = text.Text
 
-type WordCluster map[string]int
+type WordCluster map[string][]int
 
 type Comparator struct {
 	density            int
@@ -24,7 +23,6 @@ func InitComparator(targetPath string, sourcePath string, minSharedWords int, or
 	c := Comparator{}
 	c.Target = text.InitText(targetPath)
 	c.Source = text.InitText(sourcePath)
-	// fmt.Println(c.Target)
 	var stopwords []string
 	if stopPath != "" {
 		stopwords = text.ParseFile(stopPath)
@@ -82,16 +80,13 @@ func indexClusters(text1 Text, text2 Text, window int, minWordLen int, stopwords
 	// The keys for intersectionHash are individual words, and the values
 	// are the indices at which those words appear in text1.
 	intersectionHash := selectKeys(text1.WordHash, intersection)
-	fmt.Print(len(intersectionHash), len(text1.WordHash), len(intersection))
+	// fmt.Print(len(intersectionHash), len(text1.WordHash), len(intersection))
 	// `indices` should contain all the indices, in order.
 	var indices []int
 	for _, i := range intersectionHash {
 		indices = append(indices, i...)
 	}
-	// FIXME The indices listed by the following call to Println omit precisely
-	// those which are not capitalized in the final report.
 	sort.Ints(indices)
-	fmt.Print(" ", indices[:6], "\n")
 	indexClusters := partitionIndexClusters(indices, window)
 	return indexClusters
 }
@@ -116,7 +111,6 @@ func partitionIndexClusters(indices []int, window int) [][]int {
 
 func (c *Comparator) initSimilarClusters(minSharedWords int, ordered bool) {
 	similar := c.getSharedWordClusters(minSharedWords)
-	// similar := getSharedWordClusters(minSharedWords)
 	if ordered == true {
 		similar = getSharedOrderingClusters(similar)
 	}
@@ -129,16 +123,12 @@ func (c *Comparator) initWordClusters(window int, minSharedWords int,
 	text2 := c.Target
 	intersection := uniqSharedWords(&text1, &text2, minWordLen, editDist, stopwords)
 	ics1 := indexClusters(text1, text2, window, minWordLen, stopwords, editDist, intersection)
-	// FIXME With `-mwl 0`, ics1 contains all words in a self-referring
-	// text, so why don't they all get marked by the reporting function?
-	fmt.Println(ics1, len(ics1[0]))
 	ics2 := indexClusters(text2, text1, window, minWordLen, stopwords, editDist, intersection)
-	// fmt.Println(ics2, len(ics2))
-	// FIXME It seems that WordClusters are injective, but they should
+	// FIXME WordClusters are injective, but they should
 	// associate words with sets of indices.
 	var wcs []WordCluster
 	wcs = populateWordCluster(text1, ics1, minSharedWords)
-	fmt.Println(wcs, len(wcs[0]))
+	// return
 	c.sourceWordClusters = wcs
 	// fmt.Println(c.sourceWordClusters)
 	wcs = populateWordCluster(text2, ics2, minSharedWords)
@@ -147,13 +137,13 @@ func (c *Comparator) initWordClusters(window int, minSharedWords int,
 }
 
 func populateWordCluster(t Text, ics [][]int, minSharedWords int) (wcs []WordCluster) {
-	for _, group := range ics {
-		words := make(WordCluster)
-		for index, _ := range group {
-			words[t.WordArray[index]] = index
+	for _, ic := range ics {
+		wc := make(WordCluster)
+		for i, _ := range ic {
+			wc[t.WordArray[i]] = append(wc[t.WordArray[i]], i)
 		}
-		if (len(words) >= minSharedWords) && !(includes(wcs, words)) {
-			wcs = append(wcs, words)
+		if (len(wc) >= minSharedWords) && !(includes(wcs, wc)) {
+			wcs = append(wcs, wc)
 		}
 	}
 	return wcs
@@ -174,26 +164,28 @@ func populateWordCluster(t Text, ics [][]int, minSharedWords int) (wcs []WordClu
 // 	return wcs
 // }
 
-// Accepts data of the form [[{}, {}], [{}, {}]...]
+// The `getSharedOrderingClusters` function returns those WordCluster pairs in
+// which the shared words occur in the same order.
 func getSharedOrderingClusters(sharedWordClusters [][2]WordCluster) [][2]WordCluster {
 	sharedOrderingClusters := [][2]WordCluster{}
-	for _, pair := range sharedWordClusters {
-		intersection := intersection(pair[0], pair[1])
+	for _, wcPair := range sharedWordClusters {
+		intersection := wcIntersection(wcPair[0], wcPair[1])
 		// Make arrays of keys in the order they occur in the texts
-		// a = pair[0].select { |x| pair[1].key?(x) }
+		// a = wcPair[0].select { |x| wcPair[1].key?(x) }
 		// .sort_by { |_, y| y }.flatten.select.with_index { |_, i| i.even? }
-		// Collect key-value pairs shared by pair[0] and pair[1] into h1
+		// Collect key-value pairs shared by wcPair[0] and wcPair[1] into h1
 		// and h2.
-		h1 := make(map[string]int, len(intersection))
-		for word, index := range pair[0] {
-			if intersection[word] {
-				h1[word] = index
+		// h1 := make(map[string]int, len(intersection))
+		h1 := make(map[string][]int)
+		for word, is := range wcPair[0] {
+			if _, ok := intersection[word]; ok {
+				h1[word] = is
 			}
 		}
-		h2 := make(map[string]int, len(intersection))
-		for word, index := range pair[1] {
-			if intersection[word] {
-				h2[word] = index
+		h2 := make(map[string][]int, len(intersection))
+		for word, is := range wcPair[1] {
+			if _, ok := intersection[word]; ok {
+				h2[word] = is
 			}
 		}
 		// s1 and s2 contain the keys from h1 and h2, sorted according
@@ -201,7 +193,7 @@ func getSharedOrderingClusters(sharedWordClusters [][2]WordCluster) [][2]WordClu
 		s1 := sortedKeys(h1)
 		s2 := sortedKeys(h2)
 		if reflect.DeepEqual(s1, s2) {
-			sharedOrderingClusters = append(sharedOrderingClusters, pair)
+			sharedOrderingClusters = append(sharedOrderingClusters, wcPair)
 		}
 	}
 	return sharedOrderingClusters
@@ -213,20 +205,18 @@ func (c *Comparator) getSharedWordClusters(minSharedWords int) [][2]WordCluster 
 	sharedWordClusters := [][2]WordCluster{}
 	for _, sourceCluster := range c.sourceWordClusters {
 		for _, targetCluster := range c.targetWordClusters {
-			intersection := intersection(sourceCluster, targetCluster)
+			intersection := wcIntersection(sourceCluster, targetCluster)
 			if len(intersection) >= minSharedWords {
-				// fmt.Println(intersection)
-				i := make(map[string]int)
-				for word, index := range targetCluster {
+				i := make(WordCluster)
+				for word, indices := range targetCluster {
 					if intersection[word] {
-						i[word] = index
+						i[word] = indices
 					}
 				}
-				j := make(map[string]int)
-
-				for word, index := range sourceCluster {
+				j := make(WordCluster)
+				for word, indices := range sourceCluster {
 					if intersection[word] {
-						j[word] = index
+						j[word] = indices
 					}
 				}
 				pair := [2]WordCluster{i, j}

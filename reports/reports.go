@@ -37,7 +37,7 @@ func highlight(wordArray []string, indexSlice []int) []string {
 	highlitArray := wordArray
 	// TODO Highlight rather than upcasing.  Implementing this may be
 	// impractical at this level since imprementing this prior to word
-	// wrapping will require making that function significantly more
+	// wrapping may require making that function significantly more
 	// complicated.
 	// var pre, post string
 	// Color matching words red if the program output is being sent to a terminal, and surround matching words with asterisks otherwise.
@@ -57,23 +57,23 @@ func highlight(wordArray []string, indexSlice []int) []string {
 	return highlitArray
 }
 
-func PrintReport(cmp Comparator) {
+func PrintReport(c Comparator) {
 	fmt.Println("--------------------------------")
-	if len(cmp.SimilarClusters) == 0 {
+	if len(c.SimilarClusters) == 0 {
 		fmt.Println("No similar clusters found.")
 		fmt.Println("--------------------------------")
 	} else {
-		hlTarget := make([]string, len(cmp.Target.WordArray))
-		hlSource := make([]string, len(cmp.Source.WordArray))
-		for _, pair := range cmp.SimilarClusters {
-			copy(hlTarget, cmp.Target.WordArray)
-			hlTarget = highlight(hlTarget, pair[0].Values())
-			targetLine := strings.Join(limitContext(hlTarget, pair[0].Values()), " ")
+		hlTarget := make([]string, len(c.Target.WordArray))
+		hlSource := make([]string, len(c.Source.WordArray))
+		for _, pair := range c.SimilarClusters {
+			copy(hlTarget, c.Target.WordArray)
+			hlTarget = highlight(hlTarget, pair[0].FlatValues())
+			targetLine := strings.Join(limitContext(hlTarget, pair[0].FlatValues()), " ")
 			fmt.Println(wrapLine(targetLine, "> "))
 			fmt.Println("---")
-			copy(hlSource, cmp.Source.WordArray)
-			hlSource = highlight(hlSource, pair[1].Values())
-			sourceLine := strings.Join(limitContext(hlSource, pair[1].Values()), " ")
+			copy(hlSource, c.Source.WordArray)
+			hlSource = highlight(hlSource, pair[1].FlatValues())
+			sourceLine := strings.Join(limitContext(hlSource, pair[1].FlatValues()), " ")
 			fmt.Println(wrapLine(sourceLine, "< "))
 			fmt.Println("--------------------------------")
 		}

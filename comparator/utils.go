@@ -27,19 +27,20 @@ type set interface {
 // 	return false
 // }
 
-func includes(wcs []WordCluster, words map[string]int) bool {
-	for _, cluster := range wcs {
-		if (reflect.DeepEqual(cluster, words)) {
+// func includes(wcs []WordCluster, words map[string]int) bool {
+func includes(wcs []WordCluster, wc1 WordCluster) bool {
+	for _, wc2 := range wcs {
+		if (reflect.DeepEqual(wc2, wc1)) {
 			return true
 		}
 	}
 	return false
 }
 
-func intersection(h1 map[string]int, h2 map[string]int) map[string]bool {
+func wcIntersection(wc1 WordCluster, wc2 WordCluster) map[string]bool {
 	intersection := make(map[string]bool)
-	for word, _ := range h1 {
-		if _, ok := h2[word]; ok {
+	for word, _ := range wc1 {
+		if _, ok := wc2[word]; ok {
 			intersection[word] = true
 		}
 	}
@@ -58,7 +59,7 @@ func selectKeys(hash1 map[string][]int, keys []string) map[string][]int {
 	return hash2
 }
 
-// The `sharedWords` function takes pointers to two texts, a minimum word
+// The `uniqSharedWords` function takes pointers to two texts, a minimum word
 // length, and a permissible Damarau-Levenshtein edit distance.  Unique words
 // that are shared by the two texts, meet the length and edit distance
 // requirements, and are not in the stopwords list are returned as a string
@@ -118,34 +119,41 @@ func reject(s1 []string, s2 []string) []string {
 	return s1[:n]
 }
 
-// sortedKeys accepts a map of strings to integers and returns the key strings
-// as a slice sorted from least to greatest by their integer values.
-func sortedKeys(m map[string]int) (s []string) {
-	// kv holds key-value pairs.
+// The `sortedKeys` function returns a passed WordCluster's words as a string
+// slice, ordered by the words indices.
+func sortedKeys(wc WordCluster) (s []string) {
 	type kv struct {
-		key   string
-		value int
+		key   int
+		value string
 	}
 	// Extract the key-value pairs into a slice of kv structs.
 	var kvs []kv
-	for k, v := range m {
-		kvs = append(kvs, kv{k, v})
+	for word, indices := range wc {
+		for _, i := range indices {
+			kvs = append(kvs, kv{i, word})
+		}
 	}
-	// Sort the slice of kv structs based on values, from least to
+	// Sort the slice of kv structs based on keys, from least to
 	// greatest.
 	sort.Slice(kvs, func(i, j int) bool {
-		return kvs[i].value < kvs[j].value
+		return kvs[i].key < kvs[j].key
 	})
 	for _, kv := range kvs {
-		s = append(s, kv.key)
+		s = append(s, kv.value)
 	}
 	return s
 }
 
-func (clust WordCluster) Values() []int {
-	var vs []int
-	for _, v := range clust {
-		vs = append(vs, v)
+func (wc WordCluster) FlatValues() []int {
+	valMap := make(map[int]bool)
+	var valFlat []int
+	for _, ic := range wc {
+		for _, i := range ic {
+			valMap[i] = true
+		}
 	}
-	return vs
+	for i, _ := range valMap {
+		valFlat = append(valFlat, i)
+	}
+	return valFlat
 }
