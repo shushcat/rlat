@@ -11,7 +11,7 @@ var ordered, stemming bool
 
 func ParseFlags() (string, string, int, int, int, bool, bool, string, int, error) {
 	handleError := func(err error) (string, string, int, int, int, bool, bool, string, int, error) {
-		return "", "", 10, 3, 4, true, false, "", 0, err
+		return targetPath, sourcePath, window, minSharedWords, minWordLen, ordered, stemming, stopPath, editDist, err
 	}
 	flag.StringVar(&targetPath, "t", "", "target text file")
 	flag.StringVar(&sourcePath, "s", "", "source text file")
