@@ -1,11 +1,11 @@
-package damlev
+package distance
 
 import "testing"
 
 func TestDamlev(t *testing.T) {
 	var dist int
-	dist = Distance("a", "b")
+	dist = DamLev("a", "b")
 	if dist != 1 {
-		t.Errorf("Distance('a', 'b') is %d; want 1.", dist)
+		t.Errorf("DamLev('a', 'b') is %d; want 1.", dist)
 	}
 }

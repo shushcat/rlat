@@ -1,4 +1,4 @@
-package damlev
+package distance
 
 // Implement Damarau Levenshtein.
 
@@ -7,7 +7,7 @@ package damlev
   // DamerauLevenshtein.distance(word1, word2)
 // end
 
-func Distance(word1 string, word2 string) int {
+func DamLev(word1 string, word2 string) int {
 	return 0
 }
 
