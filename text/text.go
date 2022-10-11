@@ -1,7 +1,7 @@
 package text
 
 import (
-	// "github.com/shushcat/rlat/damlev"
+	// "github.com/shushcat/rlat/distance"
 	"bufio"
 	"github.com/shushcat/rlat/stemmer"
 	"log"
@@ -29,7 +29,7 @@ func InitText(path string) Text {
 func (t *Text) StemWordArray() {
 	copy(t.originalWordArray, t.WordArray)
 	for i, word := range t.WordArray {
-		t.WordArray[i] = stemmer.Stem(word) //TODO Setup stemmer.
+		t.WordArray[i], _ = stemmer.Stem(word) //TODO Setup stemmer.
 	}
 }
 

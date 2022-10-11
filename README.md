@@ -1,6 +1,6 @@
 # rlat
 
-This program compares pieces of writing to identify passages that may have influenced one another---that is, whether they are "rlat"-ed 🤦.
+This program compares pieces of writing to identify passages that may have influenced one another---it finds passages, that is to say, that might be "rlat"-ed 🤦.
 
 Rlat has (or has in development) some features that make it suitable for studies using large corpora that contain many spelling variations:
 - a word stemmer using the [Snowball language](https://snowballstem.org), 
@@ -12,7 +12,7 @@ Rlat has (or has in development) some features that make it suitable for studies
 This program is not currently in a usable state.  This notice will be removed once the following objectives are met.
 
 - [ ] Select all words when comparing to self.
-- [ ] Implement word comparison functions using the `damlev` function, enabling word matches by edit distance.
+- [ ] Implement an edit distance (`distance.DamLev("word1", "word2")`) function.
 - [ ] Implement a flag to return comparator density using a function like that used by [Neidorf 2019](https://www.nature.com/articles/s41562-019-0570-1).
 - [ ] Implement tests.
 

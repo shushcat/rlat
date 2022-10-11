@@ -2,8 +2,9 @@ package comparator
 
 import (
 	"reflect"
-	"github.com/shushcat/rlat/damlev"
+	"github.com/shushcat/rlat/distance"
 	"sort"
+	"fmt"
 )
 
 // type wordClusters []map[string]int
@@ -70,7 +71,7 @@ func uniqSharedWords(t1 *Text, t2 *Text, minWordLen int, editDist int, stopwords
 	if editDist > 0 {
 		for _, word1 := range t1.WordArray {
 			for _, word2 := range t2.WordArray {
-				if editDist >= damlev.Distance(word1, word2) {
+				if editDist >= distance.DamLev(word1, word2) {
 					uniqueShared[word1] = true
 					uniqueShared[word2] = true
 				}
@@ -155,5 +156,6 @@ func (wc WordCluster) FlatValues() []int {
 	for i, _ := range valMap {
 		valFlat = append(valFlat, i)
 	}
+	fmt.Println(valFlat)
 	return valFlat
 }

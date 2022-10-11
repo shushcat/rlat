@@ -28,7 +28,7 @@ func InitComparator(targetPath string, sourcePath string, minSharedWords int, or
 		stopwords = text.ParseFile(stopPath)
 	}
 	if editDist != 0 {
-		// TODO Invoke the damlev pruning
+		// TODO Invoke the DamLev pruning?
 	}
 	if stemming {
 		c.Target.StemWordArray()

@@ -6,7 +6,7 @@ import (
 	"github.com/shushcat/rlat/reports"
 	// "fmt"
 	"log"
-	// "github.com/shushcat/rlat/damlev"
+	// "github.com/shushcat/rlat/distance"
 	// "github.com/shushcat/rlat/stemmer"
 )
 
