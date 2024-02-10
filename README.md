@@ -2,19 +2,11 @@
 
 This program compares pieces of writing to identify passages that may have influenced one another---it finds passages, that is to say, that might be "rlat"-ed 🤦.
 
-Rlat has (or has in development) some features that make it suitable for studies using large corpora that contain many spelling variations:
+`rlat` has (or has in development) some features that make it suitable for studies using large corpora that contain many spelling variations:
+
 - a word stemmer using the [Snowball language](https://snowballstem.org), 
 - support for filtering using [stop word](https://en.wikipedia.org/wiki/Stop_words) lists, 
 - matching of words within a specified [Damarau-Levenshtein distance](https://en.wikipedia.org/wiki/Damerau–Levenshtein_distance).
-
-## Project Status
-
-This program is not currently in a usable state.  This notice will be removed once the following objectives are met.
-
-- [ ] Select all words when comparing to self.
-- [ ] Implement an edit distance (`distance.DamLev("word1", "word2")`) function.
-- [ ] Implement a flag to return comparator density using a function like that used by [Neidorf 2019](https://www.nature.com/articles/s41562-019-0570-1).
-- [ ] Implement tests.
 
 ## Usage
 
@@ -38,15 +30,28 @@ Allowable parameters are viewable with the `-h` flag, and are as follows.
 
 Binaries for various platforms will eventually be provided on a releases page.
 
-Manual installation requires [Go](https://golang.org), and should only require the command `go get github.com/shushcat/rlat`.
+Manual installation requires [Go](https://golang.org), and should only require the command `go install github.com/shushcat/rlat@latest`.
 
 ## Contributing
 
 Please submit pull requests and bug reports at https://github.com/shushcat/rlat.
 
+## Todo
+
+- [ ] Setup basic tests.
+- [ ] Make sure all words are selected when a text is compared to itself.
+- [ ] Implement an edit distance (`distance.DamLev("word1", "word2")`) function.
+- [ ] Implement a flag to return comparator density (see [Neidorf 2019](https://www.nature.com/articles/s41562-019-0570-1)).
+- [ ] Process multiple texts in parallel.
+- [ ] Use the [Snowball stemmer](https://snowballstem.org/) to get word stems.
+
+## Resources
+
+Martin Porter; "Lovins revisited"; December 2001 (revised November 2008); http://snowball.tartarus.org/algorithms/lovins/festschrift.html; _Charting a new course: progress in natural language processing and information retrieval: a festschrift for professor Karen Sparck Jones_, edited by John Tait; 2005.
+
 ## License, Credit & History
 
-rlat is available free of restrictions under the terms of the [MIT License](https://opensource.org/licenses/MIT).
+`rlat` is available free of restrictions under the terms of the [MIT License](https://opensource.org/licenses/MIT).
 
 The basic algorithm `rlat` follows in comparing texts was inspired by the plagiarism-detection program [WCopyfind](http://plagiarism.bloomfieldmedia.com/wordpress/software/wcopyfind/) by Lou Bloomfield.
 
