@@ -11,10 +11,10 @@ import (
 )
 
 type Text struct {
-	FileName          string
-	originalWordArray []string
-	WordArray         []string
-	WordHash          map[string][]int // indices of words
+	FileName      string
+	OrigWordAry []string
+	WordArray     []string
+	WordHash      map[string][]int // indices of words
 }
 
 func InitText(path string) Text {
@@ -27,14 +27,14 @@ func InitText(path string) Text {
 }
 
 func (t *Text) StemWordArray() {
-	copy(t.originalWordArray, t.WordArray)
+	copy(t.OrigWordAry, t.WordArray)
 	for i, word := range t.WordArray {
 		t.WordArray[i], _ = stemmer.Stem(word) //TODO Setup stemmer.
 	}
 }
 
 func (t *Text) UnstemWordArray() {
-	t.WordArray = t.originalWordArray
+	t.WordArray = t.OrigWordAry
 }
 
 func (t *Text) initWordHash(wordArray []string) {

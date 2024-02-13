@@ -9,6 +9,7 @@ var targetPath, sourcePath, stopPath string
 var window, minSharedWords, minWordLen, editDist int
 var ordered, stemming bool
 
+// TODO Bundle and return options as a struct.
 func ParseFlags() (string, string, int, int, int, bool, bool, string, int, error) {
 	handleError := func(err error) (string, string, int, int, int, bool, bool, string, int, error) {
 		return targetPath, sourcePath, window, minSharedWords, minWordLen, ordered, stemming, stopPath, editDist, err

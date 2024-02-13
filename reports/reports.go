@@ -33,7 +33,7 @@ func limitContext(wordArray []string, indexSlice []int) []string {
 }
 
 func highlight(wordArray []string, indexSlice []int) []string {
-	fmt.Println(wordArray)
+	// fmt.Println(wordArray)
 	// Duplicate wordArray.
 	highlitArray := wordArray
 	// TODO Highlight rather than upcasing.  Implementing this may be
@@ -55,10 +55,9 @@ func highlight(wordArray []string, indexSlice []int) []string {
 		// highlitArray[i] = (pre + highlitArray[i] + post)
 		highlitArray[i] = strings.ToUpper(highlitArray[i])
 	}
-	fmt.Println("LOOKIT")
-	fmt.Println(wordArray)
+	// fmt.Println(wordArray)
 	fmt.Println("--------")
-	fmt.Println(highlitArray)
+	// fmt.Println(highlitArray)
 	return highlitArray
 }
 

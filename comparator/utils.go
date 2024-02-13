@@ -1,10 +1,9 @@
 package comparator
 
 import (
-	"reflect"
 	"github.com/shushcat/rlat/distance"
+	"reflect"
 	"sort"
-	"fmt"
 )
 
 // type wordClusters []map[string]int
@@ -31,7 +30,7 @@ type set interface {
 // func includes(wcs []WordCluster, words map[string]int) bool {
 func includes(wcs []WordCluster, wc1 WordCluster) bool {
 	for _, wc2 := range wcs {
-		if (reflect.DeepEqual(wc2, wc1)) {
+		if reflect.DeepEqual(wc2, wc1) {
 			return true
 		}
 	}
@@ -51,7 +50,7 @@ func wcIntersection(wc1 WordCluster, wc2 WordCluster) map[string]bool {
 func selectKeys(hash1 map[string][]int, keys []string) map[string][]int {
 	hash2 := make(map[string][]int, len(keys))
 	for k, v := range hash1 {
-		for i:=0; i<len(keys); i++ {
+		for i := 0; i < len(keys); i++ {
 			if k == keys[i] {
 				hash2[k] = v
 			}
@@ -103,8 +102,8 @@ func uniqSharedWords(t1 *Text, t2 *Text, minWordLen int, editDist int, stopwords
 	return shared
 }
 
-// reject returns the elements of the string slice s1 that are not present in
-// the string slice s2.
+// Returns the elements of the string slice s1 that are not present in the
+// string slice s2.
 func reject(s1 []string, s2 []string) []string {
 	reject := make(map[string]bool)
 	for _, v := range s2 {
@@ -156,6 +155,5 @@ func (wc WordCluster) FlatValues() []int {
 	for i, _ := range valMap {
 		valFlat = append(valFlat, i)
 	}
-	fmt.Println(valFlat)
 	return valFlat
 }

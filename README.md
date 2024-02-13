@@ -28,9 +28,9 @@ Allowable parameters are viewable with the `-h` flag, and are as follows.
 
 ## Installation
 
-Binaries for various platforms will eventually be provided on a releases page.
+To install manually, first setup [Go](https://golang.org), then run the command `go install github.com/shushcat/rlat@latest`.
 
-Manual installation requires [Go](https://golang.org), and should only require the command `go install github.com/shushcat/rlat@latest`.
+Binaries for various platforms will eventually be provided on a releases page.
 
 ## Contributing
 
@@ -38,12 +38,12 @@ Please submit pull requests and bug reports at https://github.com/shushcat/rlat.
 
 ## Todo
 
-- [ ] Setup basic tests.
-- [ ] Make sure all words are selected when a text is compared to itself.
+- [x] Make sure all words are selected when a text is compared to itself with a maximum word length of 1.
+- [ ] Import all old tests.
 - [ ] Implement an edit distance (`distance.DamLev("word1", "word2")`) function.
 - [ ] Implement a flag to return comparator density (see [Neidorf 2019](https://www.nature.com/articles/s41562-019-0570-1)).
-- [ ] Process multiple texts in parallel.
 - [ ] Use the [Snowball stemmer](https://snowballstem.org/) to get word stems.
+- [ ] Process multiple texts in parallel.
 
 ## Resources
 

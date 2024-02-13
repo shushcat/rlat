@@ -19,7 +19,9 @@ type Comparator struct {
 	targetWordClusters []WordCluster
 }
 
-func InitComparator(targetPath string, sourcePath string, minSharedWords int, ordered bool, window int, minWordLen int, stemming bool, stopPath string, editDist int) Comparator {
+func InitComparator(targetPath string, sourcePath string, minSharedWords int,
+	ordered bool, window int, minWordLen int, stemming bool, stopPath string,
+	editDist int) Comparator {
 	c := Comparator{}
 	c.Target = text.InitText(targetPath)
 	c.Source = text.InitText(sourcePath)

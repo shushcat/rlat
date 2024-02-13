@@ -43,6 +43,10 @@ func TestSonnet2IdentityComparator(t *testing.T) {
 	if wordCount != 115 {
 		t.Errorf("The keys for comp.SimilarClusters[0][0] reference %d values, but should reference 115.", wordCount)
 	}
+	if len(comp.SimilarClusters[0][0].FlatValues()) != 115 || 
+		len(comp.SimilarClusters[0][1].FlatValues()) != 115 {
+		t.Errorf("There should be 115 keys in FlatValues() for both source and target texts.")
+	}
 }
 
 func TestSonnet1IdentityComparator(t *testing.T) {
