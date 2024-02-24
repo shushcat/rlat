@@ -8,7 +8,7 @@ func TestDamlev(t *testing.T) {
 	if dist != 1 {
 		t.Errorf("DamLev('a', 'b') is %d; want 1.", dist)
 	}
-	if (DamLev("hello", "hallo") != DamLev("hello", "ehllo") {
+	if (DamLev("hello", "hallo") != DamLev("hello", "ehllo")) {
 		t.Errorf("DamLev(\"hello\", \"hallo\") != DamLev(\"hello\", \"ehllo\"")
 	}
 }

@@ -8,7 +8,7 @@ import (
 func TestInitText(t *testing.T) {
 	// If the test calls a failure function such as t.Error or t.Fail,
 	// then the test has failed.
-	path := "../sonnets/Sonnet IX.txt"
+	path := "../txts/sonnets/Sonnet IX.txt"
 	son9 := InitText(path)
 	if son9.FileName != path {
 		t.Errorf("FileName is %s; want '%s'.", son9.FileName, path)

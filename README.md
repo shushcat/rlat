@@ -39,7 +39,9 @@ Please submit pull requests and bug reports at https://github.com/shushcat/rlat.
 ## Todo
 
 - [x] Make sure all words are selected when a text is compared to itself with a maximum word length of 1.
-- [ ] Import all old tests.
+- [ ] Implement test comparing all sonnet pairs.
+- [ ] Implement test closely scrutinizing the comparison of sonnets 2 and 5 with the parameters `msw=3` and `ord=True`.
+- [ ] Implement test closely scrutinizing the comparison of _Richard III_ and George North's _A brief discourse of rebellion and rebels_ with the parameters `window=25`, `min_shared_words=3`, and `min_word_length=6`.
 - [ ] Implement an edit distance (`distance.DamLev("word1", "word2")`) function.
 - [ ] Implement a flag to return comparator density (see [Neidorf 2019](https://www.nature.com/articles/s41562-019-0570-1)).
 - [ ] Use the [Snowball stemmer](https://snowballstem.org/) to get word stems.

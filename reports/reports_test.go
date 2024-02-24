@@ -8,7 +8,7 @@ import (
 )
 
 func TestReportSonnet1IdentityComparator(t *testing.T) {
-	son1 := "../sonnets/Sonnet I.txt"
+	son1 := "../txts/sonnets/Sonnet I.txt"
 	comp := comparator.InitComparator(son1, son1, 3, true, 10, 1, false, "", 0)
 	// There should be only one cluster
 	if len(comp.SimilarClusters) != 1 {
@@ -29,7 +29,7 @@ func TestReportSonnet1IdentityComparator(t *testing.T) {
 }
 
 func TestSonnet2IdentityComparator(t *testing.T) {
-	son2 := "../sonnets/Sonnet II.txt"
+	son2 := "../txts/sonnets/Sonnet II.txt"
 	comp := comparator.InitComparator(son2, son2, 3, true, 10, 1, false, "", 0)
 	// There should be only one cluster
 	if len(comp.SimilarClusters) != 1 {

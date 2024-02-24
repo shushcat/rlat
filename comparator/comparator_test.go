@@ -6,8 +6,8 @@ import (
 )
 
 func TestDissimilarComparator(t *testing.T) {
-	son2 := "../sonnets/Sonnet II.txt"
-	son5 := "../sonnets/Sonnet V.txt"
+	son2 := "../txts/sonnets/Sonnet II.txt"
+	son5 := "../txts/sonnets/Sonnet V.txt"
 	comp := InitComparator(son2, son5, 3, true, 10, 4, false, "", 0)
 	if len(comp.Source.WordArray) != 104 {
 		t.Errorf("len(comp.Source.WordArray) is %d, but should be 104", len(comp.Source.WordArray))
@@ -21,7 +21,7 @@ func TestDissimilarComparator(t *testing.T) {
 }
 
 func TestSonnet2IdentityComparator(t *testing.T) {
-	son2 := "../sonnets/Sonnet II.txt"
+	son2 := "../txts/sonnets/Sonnet II.txt"
 	comp := InitComparator(son2, son2, 3, true, 10, 1, false, "", 0)
 	// There should be only one cluster
 	if len(comp.SimilarClusters) != 1 {
@@ -50,7 +50,7 @@ func TestSonnet2IdentityComparator(t *testing.T) {
 }
 
 func TestSonnet1IdentityComparator(t *testing.T) {
-	son1 := "../sonnets/Sonnet I.txt"
+	son1 := "../txts/sonnets/Sonnet I.txt"
 	comp := InitComparator(son1, son1, 3, true, 10, 1, false, "", 0)
 	// There should be only one cluster
 	if len(comp.SimilarClusters) != 1 {
