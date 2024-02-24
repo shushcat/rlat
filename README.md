@@ -39,6 +39,7 @@ Please submit pull requests and bug reports at https://github.com/shushcat/rlat.
 ## Todo
 
 - [x] Make sure all words are selected when a text is compared to itself with a maximum word length of 1.
+- [x] Finish removing vestigial code from previous implementation.
 - [ ] Implement test comparing all sonnet pairs.
 - [ ] Implement test closely scrutinizing the comparison of sonnets 2 and 5 with the parameters `msw=3` and `ord=True`.
 - [ ] Implement test closely scrutinizing the comparison of _Richard III_ and George North's _A brief discourse of rebellion and rebels_ with the parameters `window=25`, `min_shared_words=3`, and `min_word_length=6`.
@@ -49,11 +50,23 @@ Please submit pull requests and bug reports at https://github.com/shushcat/rlat.
 
 ## Resources
 
+### _Snowball_, stemming & approximate string matching
+
 Martin Porter; "Lovins revisited"; December 2001 (revised November 2008); http://snowball.tartarus.org/algorithms/lovins/festschrift.html; _Charting a new course: progress in natural language processing and information retrieval: a festschrift for professor Karen Sparck Jones_, edited by John Tait; 2005.
+
+Gonzalo Navarro; "A guided tour to approximate string matching"; _ACM computing surveys_; March 2001; https://doi.org/10.1145/375360.375365.
+
+### Authorship of _Beowulf_
+
+Leonard Neidorf, Madison S Krieger, Michelle Yakubek, Pramit Chaudhuri & Joseph P Dexter; "Large-scale quantitative profiling of the old english verse tradition"; _Nature human behavior_; April 2019; https://doi.org/10.1038/s41562-019-0570-1.
+
+Petr Plecháč, Andrew Cooper, Benjamin Nagy & Artjoms Šeļa; "Beowulf single-authorship claim is unsupported"; _Nature human behavior_; November 2021; https://doi.org/10.1038/s41562-021-01222-5.
+
+Madison S Krieger, Pramit Chaudhuri & Joseph P Dexter; "Reply to: Beowulf single-authorship claim is unsupported"; November 2021; _Nature human behavior_; https://doi.org/10.1038/s41562-021-01223-4.
 
 ## License, Credit & History
 
-`rlat` is available free of restrictions under the terms of the [MIT License](https://opensource.org/licenses/MIT).
+`rlat` is available free of restrictions under the terms of the [ISC license](https://cvsweb.openbsd.org/src/share/misc/license.template?rev=HEAD).
 
 The basic algorithm `rlat` follows in comparing texts was inspired by the plagiarism-detection program [WCopyfind](http://plagiarism.bloomfieldmedia.com/wordpress/software/wcopyfind/) by Lou Bloomfield.
 
