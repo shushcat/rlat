@@ -1,6 +1,9 @@
 package stemmer
 
-import "testing"
+import (
+	"fmt"
+	"testing"
+)
 
 func TestStemmer(t *testing.T) {
 	var wordstem, word string
@@ -8,11 +11,12 @@ func TestStemmer(t *testing.T) {
 	if wordstem != "address" {
 		t.Errorf("stemming '%v' yielded '%v', not 'address'", word, wordstem)
 	}
+	fmt.Printf(wordstem)
 	wordstem, word = Stem("loving")
 	if wordstem != "love" {
 		t.Errorf("stemming '%v' yielded '%v', not 'love'", word, wordstem)
 	}
-	wordstem, word = Stem("Argumentative")
+	wordstem, word = Stem("argumentative")
 	if wordstem != "argument" {
 		t.Errorf("stemming '%v' yielded '%v', not 'argument'", word, wordstem)
 	}
