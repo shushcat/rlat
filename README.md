@@ -41,8 +41,8 @@ Please submit pull requests and bug reports at https://github.com/shushcat/rlat.
 - [x] Make sure all words are selected when a text is compared to itself with a maximum word length of 1.
 - [x] Finish removing vestigial code from previous implementation.
 - [ ] Use the [Snowball stemmer](https://snowballstem.org/) to get word stems.
-	- Setup the Snowball stemmer!
-		- Need to call with `stem`.
+	- [x] Stem individual words.
+	- [ ] Stem each text in a batch to reuse Snowball's `env`.
 - [ ] Implement test comparing all sonnet pairs.
 - [ ] Implement test closely scrutinizing the comparison of sonnets 2 and 5 with the parameters `msw=3` and `ord=True`.
 - [ ] Implement test closely scrutinizing the comparison of _Richard III_ and George North's _A brief discourse of rebellion and rebels_ with the parameters `window=25`, `min_shared_words=3`, and `min_word_length=6`.

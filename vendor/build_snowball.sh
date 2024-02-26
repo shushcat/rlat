@@ -18,4 +18,5 @@ mkdir -p go/algorithms
 
 cd "${BASE_DIR}"
 mkdir -vp "${SNOWBALL_PATH}/snowball/"
-mv build.d/snowball/go "${SNOWBALL_PATH}/snowball/"
+cp build.d/snowball/COPYING "${SNOWBALL_PATH}/snowball/"
+cp -r build.d/snowball/go "${SNOWBALL_PATH}/snowball/"
